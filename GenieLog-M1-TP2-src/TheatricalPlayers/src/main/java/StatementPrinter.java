@@ -7,6 +7,8 @@ public class StatementPrinter {
   public int totalAmount;
   public int VolumeCredits;
   public final NumberFormat FRMT = NumberFormat.getCurrencyInstance(Locale.US);
+  public final String TRAGEDY = "tragedy";
+  public final String COMEDY = "comedy";
 
   public StatementPrinter(){
     this.totalAmount = 0;
@@ -21,7 +23,7 @@ public class StatementPrinter {
     for (Performance perf : invoice.performances) {
       Play play = plays.get(perf.playID);
       int thisAmount = 0;
-      thisAmount = calculValueAmountPlay(perf,play);
+      thisAmount = this.calculValueAmountPlay(perf,play);
       
 
       this.addVolumeCredits(perf,play);
@@ -39,18 +41,18 @@ public class StatementPrinter {
   }
 
 
-  public static int calculValueAmountPlay(Performance perf, Play play){
+  public int calculValueAmountPlay(Performance perf, Play play){
 
     int thisAmount=0;
 
     switch (play.type) {
-      case "tragedy":
+      case TRAGEDY:
         thisAmount = 40000;
         if (perf.audience > 30) {
           thisAmount += 1000 * (perf.audience - 30);
         }
         break;
-      case "comedy":
+      case COMEDY:
         thisAmount = 30000;
         if (perf.audience > 20) {
           thisAmount += 10000 + 500 * (perf.audience - 20);
@@ -73,7 +75,7 @@ public class StatementPrinter {
     this.VolumeCredits += Math.max(perf.audience - 30, 0);
 
      // add extra credit for every ten comedy attendees
-     if ("comedy".equals(play.type)) this.VolumeCredits += Math.floor(perf.audience / 5);
+     if (COMEDY.equals(play.type)) this.VolumeCredits += Math.floor(perf.audience / 5);
   }
 
 
