@@ -1,56 +1,98 @@
 import java.text.NumberFormat;
 import java.util.*;
-import java.io.StringWriter;
 
 public class StatementPrinter {
 
+
+  public int totalAmount;
+  public int VolumeCredits;
+  public final NumberFormat FRMT = NumberFormat.getCurrencyInstance(Locale.US);
+
+  public StatementPrinter(){
+    this.totalAmount = 0;
+    this.VolumeCredits = 0;
+  }
+
   public String print(Invoice invoice, Map<String, Play> plays) {
-    int totalAmount = 0;
-    int volumeCredits = 0;
-    String result1 = String.format("Statement for %s\n", invoice.customer);
+    
     StringBuffer result = new StringBuffer(String.format("Statement for %s\n", invoice.customer));
-    NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
     
 
     for (Performance perf : invoice.performances) {
       Play play = plays.get(perf.playID);
       int thisAmount = 0;
+      thisAmount = calculValueAmountPlay(perf,play);
+      
 
-      switch (play.type) {
-        case "tragedy":
-          thisAmount = 40000;
-          if (perf.audience > 30) {
-            thisAmount += 1000 * (perf.audience - 30);
-          }
-          break;
-        case "comedy":
-          thisAmount = 30000;
-          if (perf.audience > 20) {
-            thisAmount += 10000 + 500 * (perf.audience - 20);
-          }
-          thisAmount += 300 * perf.audience;
-          break;
-        default:
-          throw new Error("unknown type: ${play.type}");
-      }
+      this.addVolumeCredits(perf,play);
 
-      // add volume credits
-      volumeCredits += Math.max(perf.audience - 30, 0);
-      // add extra credit for every ten comedy attendees
-      if ("comedy".equals(play.type)) volumeCredits += Math.floor(perf.audience / 5);
 
       // print line for this order
-      result.append(String.format("  %s: %s (%s seats)\n", play.name, frmt.format(thisAmount / 100), perf.audience));
-      result1 += String.format("  %s: %s (%s seats)\n", play.name, frmt.format(thisAmount / 100), perf.audience);
-      totalAmount += thisAmount;
+      result.append(getFormatStringOfPlayConcerned(perf,play.name,thisAmount));
+
+      this.addCurretAmountOnTotalAmount(thisAmount);
     }
 
-    result.append(String.format("Amount owed is %s\n", frmt.format(totalAmount / 100))).append(String.format("You earned %s credits\n", volumeCredits));
-
-    result1 += String.format("Amount owed is %s\n", frmt.format(totalAmount / 100));
-    result1 += String.format("You earned %s credits\n", volumeCredits);
-    System.out.println(result1);
+    result.append(getFormatStringOfAmountOwed()).append(getFormatStringOfCreditsEarned());
+  
     return result.toString();
+  }
+
+
+  public static int calculValueAmountPlay(Performance perf, Play play){
+
+    int thisAmount=0;
+
+    switch (play.type) {
+      case "tragedy":
+        thisAmount = 40000;
+        if (perf.audience > 30) {
+          thisAmount += 1000 * (perf.audience - 30);
+        }
+        break;
+      case "comedy":
+        thisAmount = 30000;
+        if (perf.audience > 20) {
+          thisAmount += 10000 + 500 * (perf.audience - 20);
+        }
+        thisAmount += 300 * perf.audience;
+        break;
+      default:
+        throw new Error("unknown type: ${play.type}");
+    }
+
+    return thisAmount;
+  }
+
+  public  void addCurretAmountOnTotalAmount(int thisAmount){
+      this.totalAmount += thisAmount;
+  }
+
+  public void addVolumeCredits(Performance perf,Play play){
+    
+    this.VolumeCredits += Math.max(perf.audience - 30, 0);
+
+     // add extra credit for every ten comedy attendees
+     if ("comedy".equals(play.type)) this.VolumeCredits += Math.floor(perf.audience / 5);
+  }
+
+
+  public String getFormatStringOfPlayConcerned(Performance perf, String namePlay, int thisAmount){
+
+    return String.format("  %s: %s (%s seats)\n",namePlay, FRMT.format(thisAmount / 100), perf.audience);
+
+  }
+
+  public String getFormatStringOfAmountOwed(){
+
+    return String.format("Amount owed is %s\n", FRMT.format(totalAmount / 100));
+
+  }
+
+  public String getFormatStringOfCreditsEarned(){
+
+    return String.format("You earned %s credits\n", this.VolumeCredits);
+
   }
 
 }

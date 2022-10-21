@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="StatementPrinterTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-10-17T11:06:20" hostname="chkane-HeroBook-Pro" time="0.624">
+<testsuite name="StatementPrinterTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-10-21T22:21:52" hostname="chkane-HeroBook-Pro" time="0.362">
   <properties/>
-  <testcase name="exampleStatement()" classname="StatementPrinterTests" time="0.565"/>
-  <testcase name="statementWithNewPlayTypes()" classname="StatementPrinterTests" time="0.052"/>
-  <system-out><![CDATA[Statement for BigCo
-  Hamlet: $650.00 (55 seats)
-  As You Like It: $580.00 (35 seats)
-  Othello: $500.00 (40 seats)
-Amount owed is $1,730.00
-You earned 47 credits
-
-]]></system-out>
+  <testcase name="exampleStatement()" classname="StatementPrinterTests" time="0.335"/>
+  <testcase name="statementWithNewPlayTypes()" classname="StatementPrinterTests" time="0.022"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
