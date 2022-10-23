@@ -30,13 +30,14 @@ public class StatementPrinter {
 
 
       // print line for this order
-      result.append(getFormatStringOfPlayConcerned(perf,play.name,thisAmount));
+      result.append(toFormatStringOfPlayConcerned(perf,play.name,thisAmount));
 
       this.addCurretAmountOnTotalAmount(thisAmount);
     }
 
-    result.append(getFormatStringOfAmountOwed()).append(getFormatStringOfCreditsEarned());
-  
+    result.append(toFormatStringOfAmountOwed()).append(toFormatStringOfCreditsEarned());
+
+    invoice.toHTML(invoice, plays);
     return result.toString();
   }
 
@@ -79,19 +80,19 @@ public class StatementPrinter {
   }
 
 
-  public String getFormatStringOfPlayConcerned(Performance perf, String namePlay, int thisAmount){
+  public String toFormatStringOfPlayConcerned(Performance perf, String namePlay, int thisAmount){
 
     return String.format("  %s: %s (%s seats)\n",namePlay, FRMT.format(thisAmount / 100), perf.audience);
 
   }
 
-  public String getFormatStringOfAmountOwed(){
+  public String toFormatStringOfAmountOwed(){
 
     return String.format("Amount owed is %s\n", FRMT.format(totalAmount / 100));
 
   }
 
-  public String getFormatStringOfCreditsEarned(){
+  public String toFormatStringOfCreditsEarned(){
 
     return String.format("You earned %s credits\n", this.VolumeCredits);
 
