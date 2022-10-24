@@ -1,7 +1,7 @@
 import java.text.NumberFormat;
 import java.util.*;
 
-public class StatementPrinter {
+public class StatementPrinter extends TroupeTheatrale{
 
 
   public int totalAmount;
