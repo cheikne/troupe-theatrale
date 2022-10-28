@@ -1,4 +1,3 @@
-import java.text.NumberFormat;
 import java.util.*;
 
 public class StatementPrinter extends TroupeTheatrale{
@@ -21,11 +20,13 @@ public class StatementPrinter extends TroupeTheatrale{
       result.append(toFormatStringOfPlayConcerned(perf,play.name,thisAmount));
 
       addCurrentAmountOnTotalAmount(thisAmount);
+      super.updatePointFideliteGreat150();
     }
 
     result.append(toFormatStringOfAmountOwed()).append(toFormatStringOfCreditsEarned());
 
-    invoice.toHTML(invoice, plays);
+    invoice.customer.setNumclient(super.VolumeCredits);
+
     return result.toString();
   }
 

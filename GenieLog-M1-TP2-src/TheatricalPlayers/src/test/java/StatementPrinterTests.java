@@ -14,7 +14,7 @@ public class StatementPrinterTests {
                 "hamlet",  new Play("Hamlet", "tragedy"),
                 "as-like", new Play("As You Like It", "comedy"),
                 "othello", new Play("Othello", "tragedy"));
-        Customer customer = new Customer("BigCo", "22114455", 150);
+        Customer customer = new Customer("BigCo", "22114455", 0);
         Invoice invoice = new Invoice(customer, List.of(
                 new Performance("hamlet", 55),
                 new Performance("as-like", 35),
@@ -22,7 +22,7 @@ public class StatementPrinterTests {
 
         StatementPrinter statementPrinter = new StatementPrinter();
         var result = statementPrinter.print(invoice, plays);
-
+        invoice.toHTML(invoice, plays);
         verify(result);
     }
 
@@ -31,7 +31,7 @@ public class StatementPrinterTests {
         Map<String, Play> plays = Map.of(
                 "henry-v",  new Play("Henry V", "history"),
                 "as-like", new Play("As You Like It", "pastoral"));
-        Customer customer = new Customer("BigCo", "22114455", 150);
+        Customer customer = new Customer("BigCo", "22114455", 0);
         Invoice invoice = new Invoice(customer, List.of(
                 new Performance("henry-v", 53),
                 new Performance("as-like", 55)));

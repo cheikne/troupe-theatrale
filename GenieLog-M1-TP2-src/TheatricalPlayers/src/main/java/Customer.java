@@ -10,4 +10,7 @@ public class Customer {
         this.pointFidelite = pointFidelite;
     }
     
+    public void setNumclient(int pointFidelite){
+        this.pointFidelite = pointFidelite;
+    }
 }

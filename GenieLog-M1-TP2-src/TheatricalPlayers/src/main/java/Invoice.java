@@ -37,6 +37,7 @@ public class Invoice extends TroupeTheatrale{
       result.append("<th>").append(toTEXT((thisAmount/100),FRMT)).append("<t/h></tr>");
 
       addCurrentAmountOnTotalAmount(thisAmount);
+      super.updatePointFideliteGreat150();
     }
 
     result.append("<tr><th></th>").append("<th>").append(TOTAL_OWED).append("</th><th>").append(toTEXT((super.totalAmount/100),FRMT)).append("</th></tr>");
@@ -44,6 +45,7 @@ public class Invoice extends TroupeTheatrale{
     result.append("</tbody></html>");
     
     printToFileHtml(result);
+    invoice.customer.setNumclient(super.VolumeCredits);
   }
 
 
@@ -63,11 +65,11 @@ public class Invoice extends TroupeTheatrale{
 
 
   public  void addCurrentAmountOnTotalAmount(int thisAmount){
-    this.totalAmount += thisAmount;
+    super.totalAmount += thisAmount;
   }
 
   public void addVolumeCredits(Performance perf,Play play){
-    this.VolumeCredits += Math.max(perf.audience - 30, 0);
+    super.VolumeCredits += Math.max(perf.audience - 30, 0);
 
     // add extra credit for every ten comedy attendees
     if (COMEDY.equals(play.type)) this.VolumeCredits += Math.floor(perf.audience / 5);

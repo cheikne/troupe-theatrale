@@ -46,4 +46,11 @@ public abstract class TroupeTheatrale {
         }
         return thisAmount;
     }
+
+    public void  updatePointFideliteGreat150(){
+        if(this.VolumeCredits > 150){
+          this.VolumeCredits = this.VolumeCredits - 150;
+          this.totalAmount = this.totalAmount - 15;
+        }
+    }
 }
