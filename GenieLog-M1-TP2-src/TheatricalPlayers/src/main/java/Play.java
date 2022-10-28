@@ -1,4 +1,4 @@
-public class Play extends TroupeTheatrale{
+public class Play{
 
   public String name;
   public String type;
@@ -8,8 +8,6 @@ public class Play extends TroupeTheatrale{
     this.type = type;
   }
 
-  public int calculValueAmountPlay(Performance perf,Play play){
-    int a=0;
-    return a;
+  public void doSomthings(){
   }
 }
