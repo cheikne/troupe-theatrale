@@ -45,14 +45,22 @@ public class StatementPrinter implements TroupeTheatrale{
      if (COMEDY.equals(play.type)) this.VolumeCredits += Math.floor(perf.audience / 5);
   }
 
+  public double priceThisAmountToFloat(int thisAmount){
+    return thisAmount/100;
+  }
+
+  public double priceTotalAmountToFLOAT(int totalAmount){
+    return totalAmount/100;
+  }
+
   public String toFormatStringOfPlayConcerned(Performance perf, String namePlay, int thisAmount){
 
-    return String.format("  %s: %s (%s seats)\n",namePlay, FRMT.format(thisAmount / 100), perf.audience);
+    return String.format("  %s: %s (%s seats)\n",namePlay, FRMT.format(priceThisAmountToFloat(thisAmount)), perf.audience);
   }
 
   public String toFormatStringOfAmountOwed(){
 
-    return String.format("Amount owed is %s\n", FRMT.format(totalAmount / 100));
+    return String.format("Amount owed is %s\n", FRMT.format(priceTotalAmountToFLOAT(totalAmount)));
   }
 
   public String toFormatStringOfCreditsEarned(){

@@ -6,7 +6,7 @@ import java.util.*;
 public class Invoice implements TroupeTheatrale{
   public Customer customer;
   public List<Performance> performances;
-  public final String HEADER_PAGE_HTML = "<html><head><title>Bootstrap Example</title><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css'><script src='https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js'></script><script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js'></script><script src='https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js'></script></head> ";
+  public final String HEADER_PAGE_HTML = "<html><head><title>Facture du client</title><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css'><script src='https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js'></script><script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js'></script><script src='https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js'></script></head> ";
   public final String DIV_CONTAINER = "<div class='container'><h1>Invoice</h1>";
   public final String HEADER_OF_TABLE = "<table class='table table-dark table-striped'><thead><tr><th>Piece</th><th>Seats sold</th><th>Price</th></tr></thead><tbody>";
   public TroupeTheatrale objectProxy;
