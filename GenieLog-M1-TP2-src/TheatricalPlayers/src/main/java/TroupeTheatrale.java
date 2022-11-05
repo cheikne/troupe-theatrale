@@ -11,12 +11,12 @@ public interface  TroupeTheatrale {
     public final String TOTAL_OWED = "Total owed";
     public final String POINTS_EARNED = "Fidelity points earned";
 
-    public int getTotalAmount();
+    public double getTotalAmount();
     public int getVolumeCredits();
     public void addVolumeCredits(Performance perf,Play play);
 
-    public int calculValueAmountPlay(Performance perf,Play play);
-    public  void addCurrentAmountOnTotalAmount(int thisAmount);
+    public double calculValueAmountPlay(Performance perf,Play play);
+    public  void addCurrentAmountOnTotalAmount(double thisAmount);
     public void  updatePointFideliteGreat150();
     public void reInitialiseAttributs();
 }

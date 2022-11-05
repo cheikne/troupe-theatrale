@@ -2,8 +2,8 @@ import java.util.*;
 
 public class StatementPrinter implements TroupeTheatrale{
 
-  public int totalAmount;
-  public int VolumeCredits;
+  private double totalAmount;
+  private int VolumeCredits;
 
   public String print(Invoice invoice, Map<String, Play> plays) {
     
@@ -11,12 +11,11 @@ public class StatementPrinter implements TroupeTheatrale{
   
     for (Performance perf : invoice.performances) {
       Play play = plays.get(perf.playID);
-      int thisAmount = 0;
+      double thisAmount = 0;
       thisAmount = this.calculValueAmountPlay(perf,play);
     
       this.addVolumeCredits(perf,play);
 
-      // print line for this order
       result.append(toFormatStringOfPlayConcerned(perf,play.name,thisAmount));
 
       addCurrentAmountOnTotalAmount(thisAmount);
@@ -30,10 +29,10 @@ public class StatementPrinter implements TroupeTheatrale{
     return result.toString();
   }
 
-  public int getTotalAmount(){ return this.totalAmount;}
+  public double getTotalAmount(){ return this.totalAmount;}
   public int getVolumeCredits(){ return this.VolumeCredits;}
 
-  public  void addCurrentAmountOnTotalAmount(int thisAmount){
+  public  void addCurrentAmountOnTotalAmount(double thisAmount){
       this.totalAmount += thisAmount;
   }
 
@@ -41,19 +40,22 @@ public class StatementPrinter implements TroupeTheatrale{
     
     this.VolumeCredits += Math.max(perf.audience - 30, 0);
 
-     // add extra credit for every ten comedy attendees
-     if (COMEDY.equals(play.type)) this.VolumeCredits += Math.floor(perf.audience / 5);
+     addExtraCreditForEveryTenComedy(play.type,perf.audience);
   }
 
-  public double priceThisAmountToFloat(int thisAmount){
+  public void addExtraCreditForEveryTenComedy(String typePlay,int audience){
+    if (COMEDY.equals(typePlay)) this.VolumeCredits += Math.floor(audience / 5);
+  }
+
+  public double priceThisAmountToFloat(double thisAmount){
     return thisAmount/100;
   }
 
-  public double priceTotalAmountToFLOAT(int totalAmount){
+  public double priceTotalAmountToFLOAT(double totalAmount){
     return totalAmount/100;
   }
 
-  public String toFormatStringOfPlayConcerned(Performance perf, String namePlay, int thisAmount){
+  public String toFormatStringOfPlayConcerned(Performance perf, String namePlay, double thisAmount){
 
     return String.format("  %s: %s (%s seats)\n",namePlay, FRMT.format(priceThisAmountToFloat(thisAmount)), perf.audience);
   }
@@ -68,9 +70,9 @@ public class StatementPrinter implements TroupeTheatrale{
     return String.format("You earned %s credits\n", this.VolumeCredits);
   }
 
-  public int calculValueAmountPlay(Performance perf,Play play){
+  public double calculValueAmountPlay(Performance perf,Play play){
         
-    int thisAmount=0;
+    double thisAmount=0;
 
     switch (play.type) {
     case TRAGEDY:
